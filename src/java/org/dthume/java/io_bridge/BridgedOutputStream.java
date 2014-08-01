@@ -1,43 +1,46 @@
 package org.dthume.java.io_bridge;
 
+import java.io.IOException;
 import java.io.OutputStream;
 import clojure.lang.IFn;
 
 public class BridgedOutputStream extends OutputStream
 {
-    private volatile IFn f;
+    private volatile Object result;
+    private volatile OutputStreamSink f;
 
-    public BridgedOutputStream(IFn f)
+    public BridgedOutputStream(OutputStreamSink f)
     {
         if (null == f)
-            throw new IllegalArgumentException("fn cannot be null");
+            throw new IllegalArgumentException("outputStreamSink cannot be null");
         this.f = f;
     }
 
-    public IFn getFn() { return f; }
+    public Object getResult() { return result; }
 
-    public void close()
+    public void close() throws IOException
     {
-        f = (IFn)f.invoke(true);
+        result = f.close();
+        f = null;
     }
 
-    public void flush()
+    public void flush() throws IOException
     {
-        f = (IFn)f.invoke(false);
+        f = f.flush();
     }
 
-    public void write(byte[] b)
+    public void write(byte[] b) throws IOException
     {
         write(b, 0, b.length);
     }
 
-    public void write(byte[] b, int off, int len)
+    public void write(byte[] b, int off, int len) throws IOException
     {
-        f = (IFn)f.invoke(b, off, len);
+        f = f.write(b, off, len);
     }
 
-    public void write(int b)
+    public void write(int b) throws IOException
     {
-        f = (IFn)f.invoke(false, b);
+        f = f.write(b);
     }
 }
