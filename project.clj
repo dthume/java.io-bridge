@@ -1,4 +1,4 @@
-(defproject org.dthume/java.io-bridge "0.1.0-SNAPSHOT"
+(defproject org.dthume/java.io-bridge "0.1.0"
   :description "Java bridge for implementing input / output streams without proxy"
 
   :dependencies [[org.clojure/clojure "1.6.0"]]
