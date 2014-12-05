@@ -1,4 +1,4 @@
-(defproject org.dthume/java.io-bridge "0.1.0"
+(defproject org.dthume/java.io-bridge "0.1.1-SNAPSHOT"
   :description "Java bridge for implementing input / output streams without proxy"
   :url "http://github.com/dthume/java.io-bridge"
   :license {:name "Eclipse Public License 1.0"
